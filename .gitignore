@@ -1,0 +1,10 @@
+# Ignorar devcontainer
+.devcontainer/
+
+# Ignorar archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Ignorar entornos virtuales
+venv/
+.env
