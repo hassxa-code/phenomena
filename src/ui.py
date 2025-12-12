@@ -5,12 +5,9 @@ from datetime import datetime, timezone
 
 class UI:
 
-    def __init__(self):
-        self.data = pd.DataFrame()
-
     def prepare_data(self, earthquake, min_mag=0):
         
-        self.data = pd.DataFrame([
+        data = pd.DataFrame([
             {
                 "lon": row["geometry"]["coordinates"][0],
                 "lat": row["geometry"]["coordinates"][1],
@@ -23,16 +20,18 @@ class UI:
             if row['properties']['mag'] >= min_mag
         ])
 
+        return data
+
     def map(self, earthquake, min_mag=0):
         
-        self.prepare_data(earthquake, min_mag)
+        data = self.prepare_data(earthquake, min_mag)
 
-        if self.data.empty:
+        if data.empty:
             st.warning("No hay terremotos que cumplan el filtro.")
             return
         
         fig = px.scatter_mapbox(
-            self.data,
+            data,
             lat="lat",
             lon="lon",
             size="mag",
@@ -44,7 +43,7 @@ class UI:
             zoom=1,
             mapbox_style="open-street-map"
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     def core(self, earthquake):
         st.title("Visualizador de Terremotos 🌍")
