@@ -47,5 +47,14 @@ class UI:
 
     def core(self, earthquake):
         st.title("Visualizador de Terremotos 🌍")
+
+        if st.button("Actualizar datos"):
+            earthquake.connect()
+
         min_mag = st.slider("Magnitud mínima", 0.0, 10.0, 2.5, 0.1)
+        
+        if earthquake.data is None:
+            st.info("No hay datos disponibles. Pulsa 'Actualizar datos'.")
+            return
+
         self.map(earthquake, min_mag)

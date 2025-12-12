@@ -6,5 +6,7 @@ def main():
     earthquake = Earthquake()
     ui = UI()
 
-    earthquake.connect()
+    if earthquake.data is None:
+        earthquake.connect()
+
     ui.core(earthquake)
