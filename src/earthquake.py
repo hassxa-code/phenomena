@@ -1,6 +1,6 @@
 from config import CONFIG
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 import json
 import os
@@ -14,7 +14,7 @@ class Earthquake:
         self.url = CONFIG["EARTHQUAKE_ENDPOINT"] 
         self.params = {
             "format": "geojson",
-            "starttime": datetime.today().strftime("%Y-%m-%d"),
+            "starttime": (datetime.today() - timedelta(days=7)).strftime("%Y-%m-%d"),
             #"endtime": datetime.today().strftime("%Y-%m-%d"),
             "minmagnitude": 0.0,
             "limit": 20000,        
